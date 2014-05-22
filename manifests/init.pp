@@ -9,11 +9,12 @@
 #
 class ruby ($version = '2.1.2') {
 
-  package { [
-    "curl",
-    "make"
-  ]:
-    ensure => present
+  if defined(Package['curl']) == false {
+    package { 'curl': ensure => present }
+  }
+
+  if defined(Package['make']) == false {
+    package { 'make': ensure => present }
   }
 
   exec { 'ruby::get':
