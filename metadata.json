@@ -1,18 +1,26 @@
 {
-    "name": "gajdaw-ruby",
-    "version": "0.1.0",
-    "source": "https://github.com/pro-vagrant/puppet-ruby",
-    "author": "Włodzimierz Gajda",
-    "license": "MIT",
-    "project_page": "https://github.com/pro-vagrant/puppet-ruby",
-    "summary": "The module installs ruby from sources",
-    "operatingsystem_support": [
-      {
-        "operatingsystem": "Ubuntu",
-        "operatingsystemrelease": [
-          "12.04"
-        ]
-      }
-    ],
-    "dependencies": []
+  "name": "gajdaw-ruby",
+  "version": "0.1.0",
+  "author": "Włodzimierz Gajda",
+  "summary": "The module installs ruby from sources",
+  "license": "MIT",
+  "source": "https://github.com/pro-vagrant/puppet-ruby",
+  "project_page": "https://github.com/pro-vagrant/puppet-ruby",
+  "issues_url": "https://github.com/pro-vagrant/puppet-ruby/issues",
+  "tags": [
+    "ruby",
+    "update",
+    "install",
+    "compile",
+    "source"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04"
+      ]
+    }
+  ],
+  "dependencies": []
 }
