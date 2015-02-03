@@ -7,7 +7,7 @@
 #   $version - the version as denoted in source filename
 #
 #
-class ruby ($version = '2.1.2') {
+class ruby ($version = '2.2.0') {
 
   if defined(Package['curl']) == false {
     package { 'curl': ensure => present }
@@ -18,7 +18,7 @@ class ruby ($version = '2.1.2') {
   }
 
   exec { 'ruby::get':
-    command => "curl ftp://ftp.ruby-lang.org/pub/ruby/2.1/ruby-${version}.tar.gz | tar xz",
+    command => "curl ftp://ftp.ruby-lang.org/pub/ruby/2.2/ruby-${version}.tar.gz | tar xz",
     cwd => "/tmp",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     onlyif  => 'test ! -d /tmp/ruby-${version}',
@@ -53,4 +53,3 @@ class ruby ($version = '2.1.2') {
   }
 
 }
-
