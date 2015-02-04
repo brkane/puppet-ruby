@@ -4,9 +4,9 @@
   "author": "Włodzimierz Gajda",
   "summary": "The module installs ruby from sources",
   "license": "MIT",
-  "source": "https://github.com/pro-vagrant/puppet-ruby",
-  "project_page": "https://github.com/pro-vagrant/puppet-ruby",
-  "issues_url": "https://github.com/pro-vagrant/puppet-ruby/issues",
+  "source": "https://github.com/puppet-by-examples/puppet-ruby",
+  "project_page": "https://github.com/puppet-by-examples/puppet-ruby",
+  "issues_url": "https://github.com/puppet-by-examples/puppet-ruby/issues",
   "tags": [
     "ruby",
     "update",
