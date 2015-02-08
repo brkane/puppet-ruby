@@ -33,34 +33,39 @@ class ruby (
     cwd => "/tmp",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     onlyif  => 'test ! -d /tmp/ruby-${version}',
-    require => [Package['curl']]
+    require => [Package['curl']],
+    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
   }
 
   exec { 'ruby::configure':
     command => "/tmp/ruby-${version}/configure --prefix=${install_path}/${version} --disable-install-rdoc",
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    require => [Package['make'], Exec['ruby::get']]
+    require => [Package['make'], Exec['ruby::get']],
+    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
   }
 
   exec { 'ruby::make':
     command => "make",
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    require => [Exec['ruby::configure'], Class['ruby::prereqs']]
+    require => [Exec['ruby::configure'], Class['ruby::prereqs']],
+    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
   }
 
   exec { 'ruby::install':
     command => "make install",
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    require => [Exec['ruby::make']]
+    require => [Exec['ruby::make']],
+    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
   }
 
   exec { 'ruby::clean':
     command => "rm -rf /tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    require => [Exec['ruby::install']]
+    require => [Exec['ruby::install']],
+    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
   }
 
 }
