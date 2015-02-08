@@ -20,6 +20,10 @@ class ruby::prereqs (
     package { 'gcc': ensure => present }
   }
 
+  if $with_gdbm and defined(Package['gdbm-devel']) == false {
+    package { 'gdbm-devel': ensure => present }
+  }
+
   if $with_openssl and defined(Package['openssl-devel']) == false {
     package { 'openssl-devel': ensure => present }
   }
