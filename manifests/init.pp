@@ -28,7 +28,7 @@ class ruby (
   }
 
   exec { 'ruby::get':
-    command => "curl ftp://ftp.ruby-lang.org/pub/ruby/2.2/ruby-${version}.tar.gz | tar xz",
+    command => "curl ftp://ftp.ruby-lang.org/pub/ruby/${minor_version}/ruby-${version}.tar.gz | tar xz",
     cwd => "/tmp",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     onlyif  => 'test ! -d /tmp/ruby-${version}',
