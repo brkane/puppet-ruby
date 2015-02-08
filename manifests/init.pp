@@ -7,14 +7,24 @@
 #   $version - the version as denoted in source filename
 #
 #
-class ruby ($version = '2.2.0') {
+class ruby (
+  $version       = '2.2.0',
+  $with_gdbm     = true,
+  $with_openssl  = true,
+  $with_readline = true,
+  $with_ripper   = true,
+  $with_zlib     = true
+  ) {
 
-  if defined(Package['curl']) == false {
-    package { 'curl': ensure => present }
-  }
+  $minor_version = inline_template('<%= @version.slice(/^\d+\.\d+/) -%>')
 
-  if defined(Package['make']) == false {
-    package { 'make': ensure => present }
+  class { 'ruby::prereqs':
+    minor_version => $minor_version,
+    with_gdbm     => $with_gdbm,
+    with_openssl  => $with_openssl,
+    with_readline => $with_readline,
+    with_ripper   => $with_ripper,
+    with_zlib     => $with_zlib,
   }
 
   exec { 'ruby::get':
@@ -36,7 +46,7 @@ class ruby ($version = '2.2.0') {
     command => "make",
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
-    require => [Exec['ruby::configure']]
+    require => [Exec['ruby::configure'], Class['ruby::prereqs']]
   }
 
   exec { 'ruby::install':
