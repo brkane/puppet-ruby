@@ -34,7 +34,7 @@ class ruby (
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     onlyif  => 'test ! -d /tmp/ruby-${version}',
     require => [Package['curl']],
-    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
+    unless  => "test -x ${install_path}/${version}/bin/ruby",
   }
 
   exec { 'ruby::configure':
@@ -42,7 +42,7 @@ class ruby (
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     require => [Package['make'], Exec['ruby::get']],
-    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
+    unless  => "test -x ${install_path}/${version}/bin/ruby",
   }
 
   exec { 'ruby::make':
@@ -50,7 +50,7 @@ class ruby (
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     require => [Exec['ruby::configure'], Class['ruby::prereqs']],
-    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
+    unless  => "test -x ${install_path}/${version}/bin/ruby",
   }
 
   exec { 'ruby::install':
@@ -58,14 +58,14 @@ class ruby (
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     require => [Exec['ruby::make']],
-    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
+    unless  => "test -x ${install_path}/${version}/bin/ruby",
   }
 
   exec { 'ruby::clean':
     command => "rm -rf /tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     require => [Exec['ruby::install']],
-    unless  => "${install_path}/${version}/bin/ruby --version | grep -q ${version}",
+    unless  => "test -d /tmp/ruby-${version}",
   }
 
 }
