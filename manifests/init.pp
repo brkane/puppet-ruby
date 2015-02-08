@@ -9,6 +9,7 @@
 #
 class ruby (
   $version       = '2.2.0',
+  $install_path  = '/opt/rubies',
   $with_gdbm     = true,
   $with_openssl  = true,
   $with_readline = true,
@@ -36,7 +37,7 @@ class ruby (
   }
 
   exec { 'ruby::configure':
-    command => "/tmp/ruby-${version}/configure --disable-install-rdoc",
+    command => "/tmp/ruby-${version}/configure --prefix=${install_path}/${version} --disable-install-rdoc",
     cwd => "/tmp/ruby-${version}",
     path    => '/usr/bin:/bin:/usr/sbin:/sbin',
     require => [Package['make'], Exec['ruby::get']]
